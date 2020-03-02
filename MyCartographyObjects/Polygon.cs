@@ -143,10 +143,12 @@ namespace MyCartographyObjects
             if (IsValid()) {
                 // return Extend(precision).IsPointInside(toCheck);
                 // Or, more precise:
-                if (IsPointInside(toCheck)) {
+                if (!IsPointInside(toCheck)) {
                     for (int i = 0; i < NbPoints; i++) {
                         if (ZZMath.GetDistancePointToLine((ZZCoordinate)Coordonnees[i], (ZZCoordinate)Coordonnees[(i + 1) % NbPoints], (ZZCoordinate)toCheck) < precision) return true;
                     }
+                } else {
+                    return true;
                 }
             }
             return false;
@@ -178,6 +180,7 @@ namespace MyCartographyObjects
                     }
                     sumAngle += sign * alpha;
                 }
+                Console.WriteLine(sumAngle);
                 return (sumAngle == 360); // To be inside, the total of the angles needs to equal 360
             }
             return false;
